@@ -1,4 +1,3 @@
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -8,22 +7,7 @@ public class Servidor {
 
     public static void main(String[] args) {
         try {
-            Interfaz implementacion = new Interfaz() {
-                @Override
-                public float sumar(float n1, float n2) { return n1 + n2; }
-                @Override
-                public float restar(float n1, float n2) { return n1 - n2; }
-                @Override
-                public float multiplicar(float n1, float n2) { return n1 * n2; }
-                @Override
-                public float dividir(float n1, float n2) {
-                    return (n2 == 0) ? 0 : n1 / n2;
-                }
-                @Override
-                public float raizCuadrada(float n1) {
-                    return (float) Math.sqrt(n1); // Implementación de la raíz cuadrada
-                }
-            };
+            Interfaz implementacion = new CalculadoraImpl();
 
             Interfaz stub = (Interfaz) UnicastRemoteObject.exportObject(implementacion, 0);
             Registry registry = LocateRegistry.createRegistry(PUERTO);
