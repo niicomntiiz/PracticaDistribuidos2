@@ -19,11 +19,15 @@ public class Servidor {
                 public float dividir(float n1, float n2) {
                     return (n2 == 0) ? 0 : n1 / n2;
                 }
+                @Override
+                public float raizCuadrada(float n1) {
+                    return (float) Math.sqrt(n1); // Implementación de la raíz cuadrada
+                }
             };
 
             Interfaz stub = (Interfaz) UnicastRemoteObject.exportObject(implementacion, 0);
             Registry registry = LocateRegistry.createRegistry(PUERTO);
-            registry.rebind("Calculadora", stub); //
+            registry.rebind("Calculadora", stub);
 
             System.out.println("Servidor listo en el puerto " + PUERTO);
         } catch (Exception e) {
